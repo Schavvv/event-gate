@@ -1,16 +1,13 @@
-import React from "react";
 import Input from "../components/form/Input";
 import MainLayout from "../layout/MainLayout";
 import Card from "../components/Card";
 import ApplyIcon from "../components/icons/ApplyIcon";
-
-
+import { supabase } from "../Utils/supabase";
 
 const SignUp = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        console.log("formData", formData.get("firstname"));
         const signupForm = {
             firstname: formData.get("firstname"),
             lastname: formData.get("lastname"),
@@ -21,52 +18,52 @@ const SignUp = () => {
         const { data, error } = await supabase.auth.signUp({
             email: signupForm.email,
             password: signupForm.password,
-        })
+        });
+
+        if (error) alert(error);
+
+        if (data) console.log(data);
     };
 
     return (
         <MainLayout>
-            <div className="flex justify-center items-center min-h-screen bg-white-100">
-                <Card>
-                    <h1 className="text-2xl font-bold mb-4 text-left">Sign Up</h1>
-                    <form onSubmit={handleSubmit}>
-                        <Input
-                            label="Firstname"
-                            type="text"
-                            placeholder="Enter your Name"
-                            name="firstname"
-                        />
-                        <Input
-                            label="Lastname"
-                            type="text"
-                            placeholder="Enter your Last Name"
-                            name="lastname"
-                        />
-                        <Input
-                            label="Email"
-                            type="email"
-                            placeholder="Enter your Email"
-                            name="email"
-                        />
-                        <Input
-                            label="Password"
-                            type="password"
-                            placeholder="Enter your Password"
-                            name="password"
-                        />
-                        <div className="flex justify-left mt-4">
-                            <button
-                                type="submit"
-                                className="flex items-center gap-2 bg-green-600 text-white py-2 px-4 rounded-full hover:bg-green-700 transition-colors"
-                            >
-                                <ApplyIcon className="w-5 h-5" />
-                                Submit
+            <div className="min-h-screen flex flex-col">
+                <div className="flex justify-center items-center flex-1">
+                    <Card>
+                        <h1 className="text-xl font-bold">Sign Up</h1>
+                        <form onSubmit={handleSubmit}>
+                            <Input
+                                name="firstname"
+                                placeholder="Enter your First Name"
+                                label="Firstname"
+                                type="text"
+                            />
+                            <Input
+                                name="lastname"
+                                placeholder="Enter your Last Name"
+                                label="Lastname"
+                                type="text"
+                            />
+                            <Input
+                                name="email"
+                                placeholder="Enter your Email"
+                                label="Email"
+                                type="email"
+                            />
+                            <Input
+                                name="password"
+                                placeholder="Enter your Password"
+                                label="Password"
+                                type="password"
+                            />
+                            <button className="btn btn-primary rounded-full mt-5">
+                                <ApplyIcon className="text-sm" /> Submit
                             </button>
-                        </div>
-                    </form>
-                </Card>
+                        </form>
+                    </Card>
+                </div>
             </div>
-        </MainLayout >
+        </MainLayout>
     );
 };
 
