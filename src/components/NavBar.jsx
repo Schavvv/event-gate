@@ -1,12 +1,19 @@
-import React from 'react'
-import { NavLink } from 'react-router'
-import HomeIcon from './icons/HomeIcon'
-import SignUpIcon from './icons/SignUpIcon'
-import { useContext } from 'react'
-import { SessionContext } from '../contexts/SessionContext'
+import React from "react";
+import { NavLink } from "react-router";
+import SignUpIcon from "./icons/SignUpIcon";
+import HomeIcon from "./icons/HomeIcon";
+import { useContext } from "react";
+import { SessionContext } from "../contexts/SessionContext";
+import { supabase } from "../Utils/supabase";
 
 const NavBar = () => {
     const session = useContext(SessionContext);
+
+    const handleLogout = async () => {
+        const { error } = await supabase.auth.signOut();
+        if (error) alert("ewan ko sayo");
+    };
+
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="flex w-full max-w-7xl mx-auto">
@@ -17,43 +24,57 @@ const NavBar = () => {
                     </a>
                 </div>
                 <div className="flex-none">
-                    <NavLink to="/" className="btn btn-primary mr-4 rounded-full btn-outline">
+                    <NavLink
+                        to="/"
+                        className="btn btn-primary mr-4 rounded-full btn-outline"
+                    >
                         <HomeIcon className="text-lg" />
                         Home
                     </NavLink>
                     {!session && (
-                        <NavLink to="/sign-up" className="btn btn-primary mr-4 rounded-full btn-outline">
+                        <NavLink
+                            to="/sign-up"
+                            className="btn btn-primary mr-4 rounded-full"
+                        >
                             <SignUpIcon className="text-lg" />
                             Sign Up
-
-
                         </NavLink>
                     )}
-
                     <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                        <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn btn-ghost btn-circle avatar"
+                        >
                             <div className="w-10 rounded-full">
                                 <img
                                     alt="Tailwind CSS Navbar component"
-                                    src="https://preview.redd.it/ser-geybin-o-malupiton-v0-21galsw27lyf1.jpg?width=382&format=pjpg&auto=webp&s=8b4cb8a75eac68a3cbd77a79ba37f6525838c7f7" />
+                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                />
                             </div>
                         </div>
                         <ul
                             tabIndex="-1"
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                        >
                             <li>
                                 <a className="justify-between">
                                     Profile
                                     <span className="badge">New</span>
                                 </a>
                             </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            <li>
+                                <a>Settings</a>
+                            </li>
+                            <li>
+                                <button onClick={handleLogout}>Logout</button>
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </div></div >
-    )
-}
+            </div>
+        </div>
+    );
+};
 
-export default NavBar
+export default NavBar;
