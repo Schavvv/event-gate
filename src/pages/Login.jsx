@@ -4,9 +4,21 @@ import MainLayout from "../layout/MainLayout";
 import Card from "../components/Card";
 import ApplyIcon from "../components/icons/ApplyIcon";
 import { supabase } from "../Utils/supabase";
+import { useContext, useEffect } from "react";
+import { SessionContext } from '../contexts/SessionContext';
+import { useNavigate } from 'react-router';
 
 
 const Login = () => {
+    const session = useContext(SessionContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (session) {
+            navigate("/");
+        }
+    }, [session, navigate]);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
