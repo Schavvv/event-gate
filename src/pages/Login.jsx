@@ -3,6 +3,7 @@ import Input from "../components/form/Input";
 import MainLayout from "../layout/MainLayout";
 import Card from "../components/Card";
 import ApplyIcon from "../components/icons/ApplyIcon";
+import LoginIcon from '../components/icons/LoginIcon';
 import { supabase } from "../Utils/supabase";
 import { useContext, useEffect } from "react";
 import { SessionContext } from '../contexts/SessionContext';
