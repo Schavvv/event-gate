@@ -15,7 +15,7 @@ const NavBar = () => {
     };
 
     return (
-        <div className="navbar bg-black">
+        <div className="navbar bg-amber-400">
             <div className="flex w-full max-w-7xl mx-auto">
                 <div className="flex-1">
                     <a className="btn btn-ghost text-xl px-0">
@@ -46,9 +46,14 @@ const NavBar = () => {
                             >
                                 <SignUpIcon className="text-lg" />
                                 Login
-                            </NavLink></>
+                            </NavLink>
+
+                        </>
                     )}
-                    (session && {
+                    {/* nullish value, undefined, "", 0, null */}
+                    {/* if session is not nullish value then execute whatever code after the && */}
+                    {/* if session is nullish than execute whatever code right after the && */}
+                    {session && (
                         <div className="dropdown dropdown-end">
                             <div
                                 tabIndex={0}
@@ -67,10 +72,10 @@ const NavBar = () => {
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                             >
                                 <li>
-                                    <a className="justify-between">
+                                    <NavLink to="/profile" className="justify-between">
                                         Profile
                                         <span className="badge">New</span>
-                                    </a>
+                                    </NavLink>
                                 </li>
                                 <li>
                                     <a>Settings</a>
@@ -80,7 +85,9 @@ const NavBar = () => {
                                 </li>
                             </ul>
                         </div>
-                    })
+                    )}
+
+
                 </div>
             </div>
         </div>
