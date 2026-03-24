@@ -7,10 +7,10 @@ import { supabase } from './Utils/supabase';
 import { SessionContext } from './contexts/SessionContext';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import EditProfile from "./pages/EditProfile";
 
 function App() {
-  // state
-  const [session, setSession] = useState(null)
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
     const {
@@ -18,18 +18,17 @@ function App() {
     } = supabase.auth.onAuthStateChange((event, session) => {
       console.log("event", event);
       console.log("session", session);
-      if (event === 'SIGNED_OUT') {
-        setSession(null)
+      if (event === "SIGNED_OUT") {
+        setSession(null);
       } else if (session) {
-        setSession(session)
+        setSession(session);
       }
     });
+
     return () => {
-      subscription.unsubscribe()
+      subscription.unsubscribe();
     };
   }, []);
-
-
 
   return (
     <SessionContext.Provider value={session}>
@@ -38,10 +37,10 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/log-in" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
       </Routes>
     </SessionContext.Provider>
-
   );
-};
+}
 
-export default App
+export default App;

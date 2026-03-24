@@ -58,7 +58,7 @@ const Login = () => {
                                 type="password"
                             />
                             <button className="btn btn-primary rounded-full mt-5">
-                                <ApplyIcon className="text-sm" /> Submit
+                                <LoginIcon className="text-sm" /> Submit
                             </button>
                         </form>
                     </Card>
