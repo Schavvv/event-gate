@@ -2,8 +2,10 @@ import React from "react";
 import MainLayout from "../layout/MainLayout";
 import Input from "../components/form/Input";
 import { supabase } from "../Utils/supabase";
+import { useNavigate } from "react-router";
 
 const AddEvent = () => {
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -15,7 +17,7 @@ const AddEvent = () => {
             .select()
             .single();
         if (eventError) alert(eventError);
-        if (eventData) console.log(eventData);
+        if (eventData) navigate("/manage-events");
 
     };
 
