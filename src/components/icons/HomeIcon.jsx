@@ -1,8 +1,8 @@
-import React from 'react'
-import { FaHome } from "react-icons/fa";
+import React from "react";
+import { IoHome } from "react-icons/io5";
 
 const HomeIcon = (props) => {
-    return <FaHome {...props} />;
-}
+    return <IoHome {...props} />;
+};
 
-export default HomeIcon
+export default HomeIcon;

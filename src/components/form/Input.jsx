@@ -1,15 +1,15 @@
-// src/components/form/Input.jsx
-import React from 'react';
+import React from "react";
 
-const Input = ({ label, type, placeholder, name }) => {
+const Input = ({ label, type, placeholder, name, defaultValue }) => {
   return (
-    <fieldset className="fieldset w-full">
-      <legend className="fieldset-legend text-sm font-medium">{label}</legend>
+    <fieldset className="fieldset">
+      <legend className="fieldset-legend">{label}</legend>
       <input
         name={name}
         type={type}
+        className="input"
         placeholder={placeholder}
-        className="input w-full border border-gray-300 rounded-md p-2"
+        defaultValue={defaultValue}
       />
     </fieldset>
   );

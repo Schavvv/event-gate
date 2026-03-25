@@ -5,9 +5,10 @@ import HomeIcon from "./icons/HomeIcon";
 import { useContext } from "react";
 import { SessionContext } from "../contexts/SessionContext";
 import { supabase } from "../Utils/supabase";
+import LoginIcon from "./icons/LoginIcon";
 
 const NavBar = () => {
-    const session = useContext(SessionContext);
+    const { session } = useContext(SessionContext);
 
     const handleLogout = async () => {
         const { error } = await supabase.auth.signOut();
@@ -15,7 +16,7 @@ const NavBar = () => {
     };
 
     return (
-        <div className="navbar bg-amber-400">
+        <div className="navbar bg-base-100 shadow-sm">
             <div className="flex w-full max-w-7xl mx-auto">
                 <div className="flex-1">
                     <a className="btn btn-ghost text-xl px-0">
@@ -23,36 +24,37 @@ const NavBar = () => {
                         <span className="text-secondary">Gate</span>
                     </a>
                 </div>
-                <div className="flex-none">
+                <div className="flex">
                     <NavLink
                         to="/"
-                        className="text-white-500 btn btn-primary mr-4 rounded-full btn-outline"
+                        className="mr-4 rounded-full btn-outline inline-flex items-center text-primary"
                     >
-                        <HomeIcon className="text-lg" />
+                        <HomeIcon className="text-md mr-1" />
                         Home
                     </NavLink>
                     {!session && (
-                        <><NavLink
-                            to="/sign-up"
-                            className="text-white-500 btn btn-primary mr-4 rounded-full"
-                        >
-                            <SignUpIcon className="text-lg" />
-                            Sign Up
-                        </NavLink>
+                        // fragment
+                        <>
+                            <NavLink
+                                to="/sign-up"
+                                className="btn btn-secondary mr-4 rounded-full"
+                            >
+                                <SignUpIcon className="text-lg" />
+                                Sign Up
+                            </NavLink>
 
                             <NavLink
                                 to="/log-in"
-                                className="text-white-500 btn btn-primary mr-4 rounded-full"
+                                className="btn btn-primary mr-4 rounded-full"
                             >
-                                <SignUpIcon className="text-lg" />
+                                <LoginIcon className="text-xl" />
                                 Login
                             </NavLink>
-
                         </>
                     )}
                     {/* nullish value, undefined, "", 0, null */}
-                    {/* if session is not nullish value then execute whatever code after the && */}
-                    {/* if session is nullish than execute whatever code right after the && */}
+                    {/* (session) && - if session is not nullish value then execute whatever code after the && */}
+                    {/* (!session) && - if session is nullish then execute whatever code right after the &&*/}
                     {session && (
                         <div className="dropdown dropdown-end">
                             <div
@@ -86,8 +88,6 @@ const NavBar = () => {
                             </ul>
                         </div>
                     )}
-
-
                 </div>
             </div>
         </div>

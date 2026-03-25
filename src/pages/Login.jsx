@@ -1,17 +1,15 @@
-import React from 'react'
 import Input from "../components/form/Input";
 import MainLayout from "../layout/MainLayout";
 import Card from "../components/Card";
-import ApplyIcon from "../components/icons/ApplyIcon";
-import LoginIcon from '../components/icons/LoginIcon';
+import SignUpIcon from "../components/icons/SignUpIcon";
+import SendIcon from "../components/icons/SendIcon";
 import { supabase } from "../Utils/supabase";
 import { useContext, useEffect } from "react";
-import { SessionContext } from '../contexts/SessionContext';
-import { useNavigate } from 'react-router';
-
+import { SessionContext } from "../contexts/SessionContext";
+import { useNavigate } from "react-router";
 
 const Login = () => {
-    const session = useContext(SessionContext);
+    const { session } = useContext(SessionContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,14 +35,14 @@ const Login = () => {
 
         if (data) console.log(data);
     };
+
     return (
         <MainLayout>
             <div className="min-h-screen flex flex-col">
                 <div className="flex justify-center items-center flex-1">
                     <Card>
-                        <h1 className="text-xl font-bold">Sign Up</h1>
+                        <h1 className="text-xl font-bold">Log In</h1>
                         <form onSubmit={handleSubmit}>
-
                             <Input
                                 name="email"
                                 placeholder="Enter your Email"
@@ -58,15 +56,14 @@ const Login = () => {
                                 type="password"
                             />
                             <button className="btn btn-primary rounded-full mt-5">
-                                <LoginIcon className="text-sm" /> Submit
+                                <SendIcon className="text-sm" /> Submit
                             </button>
                         </form>
                     </Card>
                 </div>
             </div>
         </MainLayout>
-
     );
 };
 
-export default Login
+export default Login;
