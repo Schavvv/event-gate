@@ -1,12 +1,12 @@
 import Input from "../components/form/Input";
 import MainLayout from "../layout/MainLayout";
 import Card from "../components/Card";
-import { supabase } from "../Utils/supabase";
+import SignUpIcon from "../components/icons/SignUpIcon";
 import SendIcon from "../components/icons/SendIcon";
-import { useContext, useEffect } from "react";
-import { SessionContext } from "../contexts/SessionContext";
+import { supabase } from "../Utils/supabase";
+import { useContext } from "react";
 import { useNavigate } from "react-router";
-
+import { SessionContext } from "../contexts/SessionContext";
 
 const EditProfile = () => {
     const { session, profile, setProfile } = useContext(SessionContext);
