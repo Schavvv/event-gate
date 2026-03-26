@@ -3,6 +3,7 @@ import MainLayout from '../layout/MainLayout';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import { supabase } from '../Utils/supabase';
+import EventForm from '../components/EventForm';
 
 const EditEvent = () => {
     const { eventId } = useParams();
@@ -21,7 +22,12 @@ const EditEvent = () => {
 
         fetchEvent();
     }, [eventId]);
-    return <MainLayout>{event?.title}</MainLayout>
+    return (
+        <MainLayout>
+            <EventForm event={event} />
+        </MainLayout>
+    );
 };
+
 
 export default EditEvent

@@ -4,10 +4,11 @@ import { supabase } from '../Utils/supabase';
 import { useNavigate } from 'react-router';
 
 
-const EventForm = () => {
+const EventForm = ({ eventData = null }) => {
     const navigate = useNavigate();
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+
+    const insertEvent = async (event) => {
+        console.log("inserevent")
         const formData = new FormData(event.target);
         const formDataObject = Object.fromEntries(formData.entries());
 
@@ -18,7 +19,15 @@ const EventForm = () => {
             .single();
         if (eventError) alert(eventError);
         if (eventData) navigate("/manage-events");
+    }
 
+    const handleSubmit = (formEvent) => {
+        formEvent.preventDefault();
+
+
+        if (!eventData) {
+            insertEvent(formEvent);
+        }
     };
 
     return (
