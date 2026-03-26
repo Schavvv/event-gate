@@ -4,9 +4,13 @@ import { Link } from "react-router";
 import { supabase } from "../Utils/supabase";
 import { useEffect } from "react";
 import EventCard from "../components/EventCard";
+import { useContext } from "react";
+import { SessionContext } from "../contexts/SessionContext";
 
 const ManageEvents = () => {
+    const { profile } = useContext(SessionContext)
     const [events, setEvents] = useState(null);
+    const [registrations, setRegistrations] = useState(null);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -18,8 +22,7 @@ const ManageEvents = () => {
         };
 
         fetchEvents();
-    }, []);
-
+    })
     return (
         <MainLayout>
             <div className="pt-5">
