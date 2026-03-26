@@ -5,8 +5,13 @@ import { useContext } from "react";
 import { SessionContext } from "../contexts/SessionContext";
 import { supabase } from "../Utils/supabase";
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, registrations, setRegistrations }) => {
     const { profile } = useContext(SessionContext);
+    const isRegistered = registrations?.some(
+        (registration) =>
+            registration.profile_id === profile?.id &&
+            registration.event_id === event.id
+    );
 
     const register = async () => {
         const { data, error } = await supabase
@@ -19,7 +24,28 @@ const EventCard = ({ event }) => {
             .single();
 
         if (error) alert(error);
-        if (data) console.log("data", data);
+        if (data) {
+            setRegistrations((prev) => {
+                return [...prev, data];
+            });
+        }
+    };
+
+    const unregister = async () => {
+        const { data: deletedRegistration, errorDeleteRegistration } =
+            await supabase
+                .from("registrations")
+                .delete()
+                .eq("event_id", event.id)
+                .select()
+                .single();
+        if (errorDeleteRegistration) alert(deletedRegistration);
+        if (deletedRegistration) {
+            const updatedRegistrations = registrations.filter((registration) => {
+                return registration.id != deletedRegistration.id;
+            });
+            setRegistrations(updatedRegistrations);
+        }
     };
 
     return (
@@ -54,12 +80,23 @@ const EventCard = ({ event }) => {
                     </>
                 )}
 
-                {profile?.role === "user" && (
+                {profile?.role === "user" && !isRegistered && (
                     <button class="ml-3 btn btn-primary rounded-full" onClick={register}>
                         Register
                     </button>
                 )}
+
+                {profile?.role === "user" && isRegistered && (
+                    <button
+                        class="ml-3 btn btn-secondary rounded-full"
+                        onClick={unregister}
+                    >
+                        Unregister
+                    </button>
+                )}
             </div>
+
+            {isRegistered && <p>You are already registered</p>}
         </Card>
     );
 };
